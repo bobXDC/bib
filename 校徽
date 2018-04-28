@@ -1,0 +1,109 @@
+-- 導入 "js" 模組
+local js = require "js"
+-- global 就是 javascript 的 window
+local global = js.global
+local document = global.document
+-- html 檔案中 canvas　id 設為 "canvas"
+local canvas = document:getElementById("canvas")
+-- 將 ctx 設為 canvas 2d 繪圖畫布變數
+local ctx = canvas:getContext("2d")
+
+-- 屬性呼叫使用 . 而方法呼叫使用 :
+-- 設定填圖顏色
+ctx.fillStyle = "rgb(0,0,200)"
+-- 設定畫筆顏色
+ctx.strokeStyle = "rgb(0,0,200)"
+
+-- 乘上 deg 可轉為徑度單位
+deg = math.pi / 180
+
+-- 建立多邊形定點位置畫線函式
+function star(radius, xc, yc, n)
+    --radius = 100
+    --xc = 200
+    --yc = 200
+    xi = xc + radius*math.sin((360/n)*deg+90*deg)
+    yi = yc - radius*math.cos((360/n)*deg+90*deg)
+    ctx:beginPath()
+    ctx:moveTo(xi,yi)
+    for i = 2, n+1 do
+        x = xc + radius*math.sin((360/n)*deg*i+90*deg)
+        y = yc - radius*math.cos((360/n)*deg*i+90*deg)
+        ctx:lineTo(x,y)
+    end
+end
+
+-- 以下利用多邊形畫線函式呼叫執行畫框線或填入顏色
+-- 畫藍色六邊形框線
+
+star(250, 300, 300, 6)
+ctx:closePath()
+ctx:stroke()
+ctx:fill()
+
+star(100, 300, 300, 1000)
+ctx:closePath()
+ctx:stroke()
+ctx:fill()
+
+--白色六邊形框線
+ctx.fillStyle = "white"
+star(160, 300, 300, 6)
+ctx:closePath()
+ctx:stroke()
+ctx:fill()
+
+--藍色中心圓
+ctx.fillStyle = "rgb(0,0,200)"
+star(80, 300, 300, 1000)
+ctx:closePath()
+ctx:stroke()
+ctx:fill()
+
+--正方形方塊
+ctx.fillStyle = "white"
+star(27, 300, 300, 4)
+ctx:closePath()
+ctx:stroke()
+ctx:fill()
+
+ctx.fillStyle = "white"
+star(27, 278, 278, 4)
+ctx:closePath()
+ctx:fill()
+
+ctx.fillStyle = "white"
+star(27, 255, 255, 4)
+ctx:fill()
+
+ctx.fillStyle = "white"
+star(27, 323, 323, 4)
+ctx:fill()
+
+ctx.fillStyle = "white"
+star(27, 347, 347, 4)
+ctx:fill()
+
+
+
+
+
+-- 建立多邊形定點位置畫線函式
+function star(radius, xc, yc, n)
+    --radius = 100
+    --xc = 200
+    --yc = 200
+    xi = xc + radius*math.cos((360/n)*deg+90*deg)
+    yi = yc - radius*math.sin((360/n)*deg+90*deg)
+    ctx:beginPath()
+    ctx:moveTo(xi,yi)
+    for i = 2, n+1 do
+        x = xc + radius*math.cos((360/n)*deg*i+90*deg)
+        y = yc - radius*math.sin((360/n)*deg*i+90*deg)
+        ctx:lineTo(x,y)
+    end
+end
+ctx.fillStyle = "white"
+star(250, 300, 45, 3)
+ctx:closePath()
+ctx:fill()
